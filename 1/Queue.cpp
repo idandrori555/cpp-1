@@ -1,5 +1,10 @@
 #include "Queue.h"
+
+#define DEBUG 0
+
+#if DEBUG == 1
 #include <iostream>
+#endif
 
 void initQueue(Queue *q, unsigned int size)
 {
@@ -43,6 +48,7 @@ bool isFull(Queue *s)
   return s->length == s->capacity;
 }
 
+#if DEBUG == 1
 std::ostream &operator<<(std::ostream &os, Queue *queue)
 {
   for (size_t i = 0; i < queue->length; i++)
@@ -53,9 +59,6 @@ std::ostream &operator<<(std::ostream &os, Queue *queue)
   return os;
 }
 
-#define DEBUG 0
-
-#if DEBUG == 1
 int main(void)
 {
   Queue *q = new Queue;
