@@ -29,19 +29,32 @@ void add(Node *node, unsigned value)
 
 void remove(Node *node, unsigned target)
 {
-  while (node->next && node->next->val != target)
-  {
-    node = node->next;
-    std::cout << node->val << ' ';
-  }
-
-  if (!node->next)
+  if (nullptr == node)
   {
     return;
   }
 
-  Node *toDelete = node->next;
-  node->next = toDelete->next;
+  if (node->val == target)
+  {
+    Node *toDelete = node;
+    node = node->next;
+    delete toDelete;
+    return;
+  }
+
+  Node *temp = node;
+  while (nullptr != temp->next && temp->next->val != target)
+  {
+    temp = temp->next;
+  }
+
+  if (!temp->next)
+  {
+    return;
+  }
+
+  Node *toDelete = temp->next;
+  temp->next = toDelete->next;
   delete toDelete;
 }
 
