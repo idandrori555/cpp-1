@@ -19,6 +19,30 @@ Node *initNode(unsigned value, Node *next = nullptr)
 
 void add(Node *node, unsigned value)
 {
+  while (nullptr != node->next)
+  {
+    node = node->next;
+  }
+
+  node->next = initNode(value);
+}
+
+void remove(Node *node, unsigned target)
+{
+  while (node->next && node->next->val != target)
+  {
+    node = node->next;
+    std::cout << node->val << ' ';
+  }
+
+  if (!node->next)
+  {
+    return;
+  }
+
+  Node *toDelete = node->next;
+  node->next = toDelete->next;
+  delete toDelete;
 }
 
 void cleanNode(Node *node)
@@ -34,8 +58,19 @@ void cleanNode(Node *node)
 
 int main(void)
 {
-  Node *head = initNode(1, initNode(2, initNode(3, nullptr)));
+  Node *head = initNode(0);
+  std::cout << head << std::endl;
 
+  add(head, 1);
+  add(head, 2);
+  add(head, 3);
+  add(head, 4);
+  std::cout << head << std::endl;
+
+  remove(head, 1);
+  std::cout << head << std::endl;
+
+  remove(head, 4);
   std::cout << head << std::endl;
 
   cleanNode(head);
