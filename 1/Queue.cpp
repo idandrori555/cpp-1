@@ -17,10 +17,12 @@ void initQueue(Queue *q, unsigned size)
 
 void cleanQueue(Queue *q)
 {
-  q->capacity = 0;
-  q->length = 0;
   delete[] q->arr;
   q->arr = nullptr;
+  q->capacity = 0;
+  q->length = 0;
+  q->front = 0;
+  q->rear = 0;
 }
 
 void enqueue(Queue *q, unsigned newValue)
@@ -77,9 +79,8 @@ std::ostream &operator<<(std::ostream &os, Queue *queue)
   unsigned i = 0;
   for (i = 0; i < queue->length; i++)
   {
-    os << queue->arr[i] << " ";
+    os << queue->arr[(queue->front + i) % queue->capacity] << " ";
   }
-
   return os;
 }
 
@@ -91,17 +92,8 @@ int main(void)
   enqueue(q, 2);
   enqueue(q, 3);
   enqueue(q, 4);
-
-  std::cout << q << std::endl;
-
-  dequeue(q);
-  std::cout << q << std::endl;
-
-  dequeue(q);
-  std::cout << q << std::endl;
-
-  dequeue(q);
-  std::cout << q << std::endl;
+  enqueue(q, 5);
+  enqueue(q, 6); // resizes here to 10
 
   cleanQueue(q);
   delete q;
