@@ -1,12 +1,12 @@
 #include "Queue.h"
 
-#define DEBUG 0
+#define DEBUG 1
 
 #if DEBUG == 1
 #include <iostream>
 #endif
 
-void initQueue(Queue *q, unsigned int size)
+void initQueue(Queue *q, unsigned size)
 {
   q->arr = new unsigned[size];
   q->capacity = size;
@@ -63,7 +63,20 @@ int main(void)
 {
   Queue *q = new Queue;
   initQueue(q, 5);
+  enqueue(q, 1);
+  enqueue(q, 2);
+  enqueue(q, 3);
+  enqueue(q, 4);
 
+  std::cout << q << std::endl;
+
+  dequeue(q);
+  std::cout << q << std::endl;
+
+  dequeue(q);
+  std::cout << q << std::endl;
+
+  dequeue(q);
   std::cout << q << std::endl;
 
   cleanQueue(q);

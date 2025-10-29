@@ -7,8 +7,8 @@ typedef struct Queue
   unsigned *arr;
   unsigned length;
   unsigned capacity;
-  unsigned int front;
-  unsigned int rear;
+  unsigned front;
+  unsigned rear;
 } Queue;
 
 void initQueue(Queue *q, unsigned int size);

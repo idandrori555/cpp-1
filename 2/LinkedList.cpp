@@ -69,6 +69,7 @@ void cleanNode(Node *node)
   delete node;
 }
 
+#if DEBUG == 1
 int main(void)
 {
   Node *head = initNode(0);
@@ -89,3 +90,4 @@ int main(void)
   cleanNode(head);
   return 0;
 }
+#endif
