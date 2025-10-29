@@ -11,7 +11,7 @@ typedef struct Queue
   unsigned rear;
 } Queue;
 
-void initQueue(Queue *q, unsigned int size);
+void initQueue(Queue *q, unsigned size);
 void cleanQueue(Queue *q);
 
 void enqueue(Queue *q, unsigned int newValue);
