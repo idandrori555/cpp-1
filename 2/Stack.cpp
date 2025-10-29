@@ -1,6 +1,6 @@
 #include "Stack.h"
 
-#define DEBUG 1
+#define DEBUG 0
 
 void push(Stack *s, unsigned element)
 {
