@@ -1,6 +1,6 @@
 #include "Stack.h"
 
-#define DEBUG 1
+#define DEBUG 0
 
 void push(Stack *s, unsigned element)
 {
@@ -12,7 +12,8 @@ int pop(Stack *s)
   {
     return 0;
   }
-  s->length--;
+
+  return 0;
 }
 
 void initStack(Stack *s)
