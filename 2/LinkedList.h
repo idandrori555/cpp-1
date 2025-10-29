@@ -2,9 +2,10 @@
 
 typedef struct Node
 {
-  unsigned val;
+  unsigned value;
+  Node *prev;
   Node *next;
 } Node;
 
-Node *initNode(Node *node, int value);
+Node *initNode(unsigned value, Node *prev, Node *next);
 void cleanNode(Node *node);

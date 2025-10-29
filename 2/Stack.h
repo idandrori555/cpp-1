@@ -7,11 +7,11 @@
 typedef struct Stack
 {
   unsigned length;
-  unsigned capacity;
-  Node *node;
+  Node *top;
+  Node *bottom;
 } Stack;
 
-void push(Stack *s, unsigned int element);
+void push(Stack *s, unsigned element);
 int pop(Stack *s); // Return -1 if stack is empty
 
 void initStack(Stack *s);

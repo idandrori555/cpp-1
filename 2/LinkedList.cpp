@@ -12,50 +12,9 @@ std::ostream &operator<<(std::ostream &os, Node *node)
 }
 #endif
 
-Node *initNode(unsigned value, Node *next = nullptr)
+Node *initNode(unsigned value, Node *prev, Node *next)
 {
-  return new Node{value, next};
-}
-
-void add(Node *node, unsigned value)
-{
-  while (nullptr != node->next)
-  {
-    node = node->next;
-  }
-
-  node->next = initNode(value);
-}
-
-void remove(Node *node, unsigned target)
-{
-  if (nullptr == node)
-  {
-    return;
-  }
-
-  if (node->val == target)
-  {
-    Node *toDelete = node;
-    node = node->next;
-    delete toDelete;
-    return;
-  }
-
-  Node *temp = node;
-  while (nullptr != temp->next && temp->next->val != target)
-  {
-    temp = temp->next;
-  }
-
-  if (!temp->next)
-  {
-    return;
-  }
-
-  Node *toDelete = temp->next;
-  temp->next = toDelete->next;
-  delete toDelete;
+  return new Node{value, prev, next};
 }
 
 void cleanNode(Node *node)
