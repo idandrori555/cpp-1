@@ -8,7 +8,7 @@ typedef struct Stack
 {
   unsigned length;
   unsigned capacity;
-  Node *next;
+  Node *node;
 } Stack;
 
 void push(Stack *s, unsigned int element);

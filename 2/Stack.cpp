@@ -1,20 +1,25 @@
 #include "Stack.h"
 
-void push(Stack *s, unsigned int element);
+#define DEBUG 1
+
+void push(Stack *s, unsigned element)
+{
+}
+
 int pop(Stack *s)
 {
   if (isEmpty(s))
   {
     return 0;
   }
+  s->length--;
 }
 
 void initStack(Stack *s)
 {
-  s = new Stack;
   s->capacity = 0;
   s->length = 0;
-  s->next = nullptr;
+  s->node = new Node{0, nullptr};
 }
 
 void cleanStack(Stack *s)
@@ -34,3 +39,22 @@ bool isFull(Stack *s)
 {
   return s->capacity == s->length;
 }
+
+#if DEBUG == 1
+std::ostream &operator<<(std::ostream &os, Stack *s)
+{
+  while (!isEmpty(s))
+  {
+    std::cout << s->node->val << ' ';
+  }
+}
+
+int main(void)
+{
+  Stack *s = new Stack;
+  initStack(s);
+
+  delete s;
+  return 0;
+}
+#endif
