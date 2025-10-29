@@ -1,6 +1,6 @@
 #include "Queue.h"
 
-#define DEBUG 1
+#define DEBUG 0
 
 #if DEBUG == 1
 #include <iostream>
@@ -25,6 +25,24 @@ void cleanQueue(Queue *q)
 
 void enqueue(Queue *q, unsigned newValue)
 {
+  if (isFull(q))
+  {
+    unsigned newCapacity = q->capacity * 2;
+    unsigned *newArr = new unsigned[newCapacity];
+
+    unsigned i = 0;
+    for (i = 0; i < q->length; i++)
+    {
+      newArr[i] = q->arr[(q->front + i) % q->capacity];
+    }
+
+    delete[] q->arr;
+    q->arr = newArr;
+    q->capacity = newCapacity;
+    q->front = 0;
+    q->rear = q->length;
+  }
+
   q->arr[q->rear] = newValue;
   q->rear = (q->rear + 1) % q->capacity;
   q->length++;
@@ -32,6 +50,11 @@ void enqueue(Queue *q, unsigned newValue)
 
 int dequeue(Queue *q)
 {
+  if (isEmpty(q))
+  {
+    return -1;
+  }
+
   int val = q->arr[q->front];
   q->front = (q->front + 1) % q->capacity;
   q->length--;
@@ -51,7 +74,8 @@ bool isFull(Queue *s)
 #if DEBUG == 1
 std::ostream &operator<<(std::ostream &os, Queue *queue)
 {
-  for (size_t i = 0; i < queue->length; i++)
+  unsigned i = 0;
+  for (i = 0; i < queue->length; i++)
   {
     os << queue->arr[i] << " ";
   }
