@@ -1,15 +1,11 @@
 #include "Queue.h"
 
-#define DEBUG 0
-
-#if DEBUG == 1
-#include <iostream>
-#endif
-
 void initQueue(Queue *q, unsigned size)
 {
-  q->arr = new unsigned[size];
-  q->capacity = size;
+  // Ensure minimum capacity of 1
+  unsigned actualSize = (size == 0) ? 1 : size;
+  q->arr = new unsigned[actualSize];
+  q->capacity = actualSize;
   q->length = 0;
   q->rear = 0;
   q->front = 0;
@@ -29,11 +25,11 @@ void enqueue(Queue *q, unsigned newValue)
 {
   if (isFull(q))
   {
-    unsigned newCapacity = q->capacity * 2;
+    // Ensure minimum capacity of 1
+    unsigned newCapacity = (q->capacity == 0) ? 1 : q->capacity * 2;
     unsigned *newArr = new unsigned[newCapacity];
 
-    unsigned i = 0;
-    for (i = 0; i < q->length; i++)
+    for (unsigned i = 0; i < q->length; i++)
     {
       newArr[i] = q->arr[(q->front + i) % q->capacity];
     }
@@ -57,27 +53,30 @@ int dequeue(Queue *q)
     return -1;
   }
 
-  int val = q->arr[q->front];
+  unsigned val = q->arr[q->front];
   q->front = (q->front + 1) % q->capacity;
   q->length--;
-  return val;
+
+  return (int)val;
 }
 
-bool isEmpty(Queue *s)
+bool isEmpty(Queue *q)
 {
-  return s->length == 0;
+  return q->length == 0;
 }
 
-bool isFull(Queue *s)
+bool isFull(Queue *q)
 {
-  return s->length == s->capacity;
+  return q->length == q->capacity;
 }
 
+#define DEBUG 0
 #if DEBUG == 1
+#include <iostream>
+
 std::ostream &operator<<(std::ostream &os, Queue *queue)
 {
-  unsigned i = 0;
-  for (i = 0; i < queue->length; i++)
+  for (unsigned i = 0; i < queue->length; i++)
   {
     os << queue->arr[(queue->front + i) % queue->capacity] << " ";
   }
@@ -94,7 +93,6 @@ int main(void)
   enqueue(q, 4);
   enqueue(q, 5);
   enqueue(q, 6); // resizes here to 10
-
   cleanQueue(q);
   delete q;
   return 0;
