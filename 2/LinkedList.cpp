@@ -19,13 +19,13 @@ Node *initNode(unsigned value, Node *prev, Node *next)
 
 void cleanNode(Node *node)
 {
-  if (nullptr == node)
+  Node *next = nullptr;
+  while (nullptr != node)
   {
-    return;
+    next = node->next;
+    delete node;
+    node = next;
   }
-
-  cleanNode(node->next);
-  delete node;
 }
 
 #if DEBUG == 1
